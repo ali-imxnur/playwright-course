@@ -17,7 +17,7 @@ test.only("New user full end-to-end test journey", async({page})=>{
     
     await checkoutPage.verifyBasketHeader();
     await checkoutPage.verifyTotalPrice();
-    
+
     //await page.pause();
 
 });
