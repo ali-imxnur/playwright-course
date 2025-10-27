@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test"
-import { Navigation } from "./Navigation.JS";
+import { Navigation } from "./Navigation.js";
 
 export class ProductsPage {
     constructor(page) {
@@ -34,7 +34,7 @@ export class ProductsPage {
         const productTitleBeforeSorted = await this.ProductTitle.allInnerTexts();
         await this.sortDropdown.selectOption('Price ascending');
         const productTitleAfterSorted = await this.ProductTitle.allInnerTexts();
-        await expect(productTitleBeforeSorted).not.toEqual(productTitleAfterSorted);
+        expect(productTitleBeforeSorted).not.toEqual(productTitleAfterSorted);
        
     }
 
