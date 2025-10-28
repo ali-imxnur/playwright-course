@@ -5,7 +5,10 @@ import { CheckoutPage } from "../page-objects/CheckoutPage.js";
 import { Navigation } from "../page-objects/Navigation.js";
 import { LoginPage} from "../page-objects/LoginPage.js";
 import { SignupPage } from "../page-objects/SignupPage.js";
-import { DeliveryDetails } from "../page-objects/DeliveryDetails.js";
+import { DeliveryDetails } from "../page-objects/DeliveryDetailsPage.js";
+import { userDetails } from "../test-data/userDetails.js";
+import { PaymentPage } from "../page-objects/PayementPage.js";
+import { paymentDetails } from "../test-data/paymentDetails.js";
 
 test.only("New user full end-to-end test journey", async ({page}) => {
     const productPage = new ProductsPage(page);
@@ -32,7 +35,15 @@ test.only("New user full end-to-end test journey", async ({page}) => {
     const password = uuidv4();
     await signupPage.registerUser(email, password);
     await page.waitForLoadState('networkidle');
+
     const deliveryDetailsPage = new DeliveryDetails(page);
     await deliveryDetailsPage.verifyDeliveryPage();
-    await deliveryDetailsPage.fillDetails();
+    await deliveryDetailsPage.fillDetails(userDetails);
+    await deliveryDetailsPage.continueToPayement();
+
+    const paymentPage = new PaymentPage(page);
+    await paymentPage.activateDiscount();
+    await paymentPage.fillPaymentDetailsandClickPayButton(paymentDetails);
+    
+
 });

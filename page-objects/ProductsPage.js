@@ -25,7 +25,7 @@ export class ProductsPage {
         await expect(specificAddButton).toHaveText("Remove from Basket");
         await this.page.waitForTimeout(500);
         const basketCountAfterAdding = await navigation.getBasketCount();
-        await expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding);
+        expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding);
     }
 
     sortByChpst = async ()=> {

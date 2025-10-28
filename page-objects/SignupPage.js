@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { timeout } from "../../playwright.config";
+import { timeout } from "../playwright.config";
 
 export class SignupPage{
     constructor(page){

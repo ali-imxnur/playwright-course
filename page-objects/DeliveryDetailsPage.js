@@ -17,29 +17,30 @@ export class DeliveryDetails{
         await expect(this.deliveryHeader).toBeVisible();
     }
 
-    fillDetails = async ()=> {
+    fillDetails = async (userDetails)=> {
         await this.firstNameInput.waitFor({ state: "visible", timeout: 15000 });
-        await this.firstNameInput.fill("test");
+        await this.firstNameInput.fill(userDetails.firstName);
 
         await this.lastNameInput.waitFor();
-        await this.lastNameInput.fill("details");
+        await this.lastNameInput.fill(userDetails.lastName);
 
         await this.streetInput.waitFor();
-        await this.streetInput.fill("something 123");
+        await this.streetInput.fill(userDetails.street);
 
         await this.postcodeInput.waitFor();
-        await this.postcodeInput.fill("12345");
+        await this.postcodeInput.fill(userDetails.postalcode);
 
         await this.cityInput.waitFor();
-        await this.cityInput.fill("xyz");
+        await this.cityInput.fill(userDetails.city);
 
         await this.countryDropdown.waitFor();
-        await this.countryDropdown.selectOption({value: "India"});
+        await this.countryDropdown.selectOption(userDetails.country);
+    }
 
+    continueToPayement = async ()=> {
         await this.continueToPaymentButton.waitFor();
         await this.continueToPaymentButton.click();
-
-        await this.page.pause();
+        await expect(this.page).toHaveURL(/\/payment/, {timeout: 3000})
     }
 
 }
