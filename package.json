@@ -4,14 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test --headed",
-    "test:ci": "playwright test"
+    "test": "npx playwright test --headed",
+    "test:ci": "npx playwright test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
-  "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.29.1"
   },
