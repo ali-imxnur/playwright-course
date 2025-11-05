@@ -100,6 +100,14 @@ const config = {
   // outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
+  webServer: {
+    command:
+      process.platform === 'win32'
+        ? 'shopping-store.exe'
+        : './shopping-store-linux-amd64', // For Ubuntu/Linux
+    port: 2221,
+    reuseExistingServer: !process.env.CI, // Reuse local server if already running
+  },
   // webServer: {
   //   command: 'npm run start',
   //   port: 3000,

@@ -4,28 +4,41 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
-    container :
+    container:
       image: mcr.microsoft.com/playwright:v1.29.1-focal
       env:
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install chrome
-    - name: run playwright tests
+
+    - name: Start shopping-store application
       run: |
-        echo "Start the shopping-store application"
-        chmod +x ./shopping-store-linux-amd64 &
-        echo "Run playwright tests"
+        echo "Starting shopping-store server..."
+        chmod +x ./shopping-store-linux-amd64
+        ./shopping-store-linux-amd64 &
+        echo "Waiting for server to start..."
+        npx wait-on http://localhost:2221
+
+    - name: Run Playwright tests
+      run: |
+        echo "Running Playwright tests..."
         npm run test:ci
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
