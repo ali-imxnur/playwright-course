@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install chrome
     - name: run playwright tests
       run: |
         echo "Start the shopping-store application"
