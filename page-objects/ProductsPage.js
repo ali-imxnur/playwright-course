@@ -20,12 +20,12 @@ export class ProductsPage {
         const specificAddButton = this.addToBasketButtons.nth(index);
         await specificAddButton.waitFor();
         await expect(specificAddButton).toHaveText("Add to Basket");
-        const navigation = new Navigation(this.page);
-        const basketCountBeforeAdding = await navigation.getBasketCount();
+        const navigation1 = new Navigation(this.page);
+        const basketCountBeforeAdding = await navigation1.getBasketCount();
         await specificAddButton.click();
         await expect(specificAddButton).toHaveText("Remove from Basket");
         await this.page.waitForTimeout(500);
-        const basketCountAfterAdding = await navigation.getBasketCount();
+        const basketCountAfterAdding = await navigation1.getBasketCount();
         expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding);
     }
 
