@@ -1,4 +1,5 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main ]
@@ -14,33 +15,37 @@ jobs:
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Install Playwright Browsers
-      run: npx playwright install chrome
+      - name: Install Playwright Browsers
+        run: npx playwright install chrome
 
-    - name: Start shopping-store application
-      run: |
-        echo "Starting shopping-store server..."
-        chmod +x ./shopping-store-linux-amd64
-        ./shopping-store-linux-amd64 &
-        echo "Waiting for server to start..."
-        npx wait-on http://localhost:2221
+      - name: Start shopping-store application
+        run: |
+          echo "🚀 Starting shopping-store server..."
+          chmod +x ./shopping-store-linux-amd64
+          nohup ./shopping-store-linux-amd64 > server.log 2>&1 &
+          echo "⏳ Waiting for server to start..."
+          npx wait-on http://localhost:2221
+        shell: bash
 
-    - name: Run Playwright tests
-      run: |
-        echo "Running Playwright tests..."
-        npm run test:ci
+      - name: Run Playwright tests
+        env:
+          CI: true
+        run: |
+          echo "🎭 Running Playwright tests..."
+          npm run test:ci
 
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/

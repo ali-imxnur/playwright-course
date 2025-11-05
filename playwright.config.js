@@ -106,7 +106,7 @@ const config = {
         ? 'shopping-store.exe'
         : './shopping-store-linux-amd64', // For Ubuntu/Linux
     port: 2221,
-    reuseExistingServer: !process.env.CI, // Reuse local server if already running
+    reuseExistingServer: true, // Reuse local server if already running
   },
   // webServer: {
   //   command: 'npm run start',
