@@ -1,6 +1,4 @@
 import { expect } from "@playwright/test"
-import { Navigation } from "./Navigation.js";
-
 
 export class ProductsPage {
     constructor(page) {
@@ -9,24 +7,35 @@ export class ProductsPage {
         this.basketCounter = page.locator('[data-qa="header-basket-count"]');
         this.sortDropdown = page.locator('[data-qa="sort-dropdown"]');
         this.ProductTitle = page.locator('[data-qa="product-title"]');
+        this.checkOutLink = page.getByRole('link', { name: 'Checkout' });
     }
 
     visit = async () => {
         await this.page.goto("/");
     }
 
+    getBasketCount = async () => {
+        await this.basketCounter.waitFor();
+        const text = await this.basketCounter.innerText();
+        return parseInt(text);
+    }
 
     addProductToBasket = async (index) => {
         const specificAddButton = this.addToBasketButtons.nth(index);
         await specificAddButton.waitFor();
         await expect(specificAddButton).toHaveText("Add to Basket");
-        const navigation1 = new Navigation(this.page);
-        const basketCountBeforeAdding = await navigation1.getBasketCount();
+        const basketCountBeforeAdding = await this.getBasketCount();
         await specificAddButton.click();
         await expect(specificAddButton).toHaveText("Remove from Basket");
         await this.page.waitForTimeout(500);
-        const basketCountAfterAdding = await navigation1.getBasketCount();
+        const basketCountAfterAdding = await this.getBasketCount();
         expect(basketCountAfterAdding).toBeGreaterThan(basketCountBeforeAdding);
+    }
+
+    
+
+    clickCheckoutLink = async () => {
+        await this.checkOutLink.click();
     }
 
     sortByChpst = async ()=> {
