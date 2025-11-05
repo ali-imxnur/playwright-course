@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "",
+  "type": "commonjs",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.29.1"
