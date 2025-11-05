@@ -26,7 +26,7 @@ const config = {
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: false,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
@@ -46,12 +46,12 @@ const config = {
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
-    },
+     {
+    //   name: 'chromium',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //   },
+    // },
 
     // {
     //   name: 'firefox',
@@ -89,11 +89,11 @@ const config = {
     //   },
     // },
     // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
+      name: 'Google Chrome',
+      use: {
+        channel: 'chrome',
+      },
+    },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */

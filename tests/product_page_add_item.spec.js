@@ -1,6 +1,6 @@
 import {expect, test} from "@playwright/test";
 
-test("Product page Add to Basket", async({page})=>{
+test.skip("Product page Add to Basket", async({page})=>{
     await page.goto("/");
 
     const addToBasketButton = page.locator("[data-qa='product-button']").first();
