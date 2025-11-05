@@ -38,7 +38,7 @@ export class PaymentPage{
         
         await this.payButton.click();
         await expect(this.page).toHaveURL(/\/thank-you/, {timeout: 3000});
-        await this.page.pause();
+        // await this.page.pause();
     }
 
 }
